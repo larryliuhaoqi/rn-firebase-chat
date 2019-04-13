@@ -98,7 +98,7 @@ export default class ChatScreen extends React.Component {
     render() {
         let { height, width } = Dimensions.get('window');
         return (
-            <SafeAreaView>
+            <SafeAreaView style={styles.messageinput}>
                 <FlatList
                     style={{ padding: 10, height: height * 0.8 }}
                     data={this.state.messageList}

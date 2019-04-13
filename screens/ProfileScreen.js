@@ -23,7 +23,7 @@ export default class ProfileScreen extends React.Component {
         if (this.state.name.length < 3) {
             Alert.alert('Error', 'Please enter valid name.')
         } else if (User.name !== this.state.name) {
-            firebase.database().ref('users').child(User.phone).set({ name: this.state.name });
+            firebase.database().ref('users').child(User.phone).update({ name: this.state.name });
             User.name = this.state.name;
             Alert.alert('Success', 'Name have be changed.');
         }
@@ -33,6 +33,8 @@ export default class ProfileScreen extends React.Component {
     _logOut = async () => {
         await AsyncStorage.clear();
         this.props.navigation.navigate('Auth');
+        // change connections
+        firebase.database().ref("users").child(User.phone).update({ connections: "offline" });
     }
 
     render() {

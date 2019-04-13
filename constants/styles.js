@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: '#FFFFFF',
     },
+    messageinput: {
+      flex: 1,
+    },
     input: {
       padding:  10,
       borderWidth: 1,

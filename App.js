@@ -8,9 +8,9 @@ import ProfileScreen from './screens/ProfileScreen';
 import RegistScreen from './screens/RegistScreen';
 
 const AppStack = createStackNavigator({
-  Home: HomeScreen, Chat: ChatScreen, Profile: ProfileScreen, Regist: RegistScreen
+  Home: HomeScreen, Chat: ChatScreen, Profile: ProfileScreen, 
 });
-const AuthStack = createStackNavigator({ Login: LoginScreen });
+const AuthStack = createStackNavigator({ Login: LoginScreen, Regist: RegistScreen });
 
 export default createAppContainer(createSwitchNavigator(
   {
@@ -19,6 +19,7 @@ export default createAppContainer(createSwitchNavigator(
     Auth: AuthStack,
   },
   {
+    // initialRouteName: 'Auth',
     initialRouteName: 'AuthLoading',
   }
 ));

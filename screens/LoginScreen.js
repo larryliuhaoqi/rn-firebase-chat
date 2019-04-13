@@ -1,10 +1,9 @@
 
 import React from 'react';
-import { Platform, TouchableOpacity, Text, Alert, TextInput, View } from 'react-native';
+import { Platform, TouchableOpacity, Text, Alert, TextInput, View, AsyncStorage } from 'react-native';
 import firebase from 'firebase';
 import User from '../User';
 import styles from '../constants/styles';
-// import console = require('console');
 
 export default class LoginScreen extends React.Component {
 
@@ -22,47 +21,25 @@ export default class LoginScreen extends React.Component {
     this.setState({ [key]: val })
   }
 
-  getRealPassword = () => {
+  submitForm = async () => {
     User.phone = this.state.phone;
     User.pass = this.state.pass;
     // to app
-    ToApp = this.props.navigation.navigate('App');
-    
+    ToApp = this.props.navigation;
+    AsSet = await AsyncStorage;
     return firebase.database().ref('/users/' + User.phone).once('value').then(function (snapshot) {
       var password = (snapshot.val() && snapshot.val().pass) || 'Anonymous';
-      if (User.phone.length < 10) {
-        Alert.alert('Error', 'Wrong phone number')
+      if (User.phone.length < 8) {
+        Alert.alert('Error', 'Wrong phone number');
       } else if (User.pass != password) {
-        Alert.alert('Error', 'Wrong password')
-      } else {
+        Alert.alert('Error', 'Wrong password');
+      } else if (User.pass == password) {
         // to app
-        ToApp;
+        AsSet.setItem('userPhone', User.phone);
+        ToApp.navigate('App');
       }
-  
+
     });
-  }
-
-  submitForm = () => {
-    // console.log(this.password);
-    // console.log(password);
-    // console.log(User.phone);
-    this.getRealPassword();
-    if (this.state.phone.length < 10) {
-      Alert.alert('Error', 'Wrong phone number')
-    } else if (this.state.pass != User.pass) {
-      // console.log(User.pass);
-      Alert.alert('Error', 'Wrong password')
-    } else {
-      //save user data
-      // await AsyncStorage.setItem('userPhone', this.state.phone);
-      //   AsyncStorage.setItem('userPhone', this.state.phone);
-      // User.phone = this.state.phone;
-      // firebase.database().ref('users/' + User.phone).set({ pass: this.state.pass });// save to  firebase
-      // to app
-      this.props.navigation.navigate('App');
-    }
-
-
   }
 
   toRegistScreen() {
@@ -86,7 +63,7 @@ export default class LoginScreen extends React.Component {
           onChangeText={this.handleChange('pass')}
         />
         {/* login */}
-        <TouchableOpacity onPress={this.getRealPassword}>
+        <TouchableOpacity onPress={this.submitForm}>
           <Text style={styles.btnText}>Enter</Text>
         </TouchableOpacity>
         {/* Regist */}

@@ -34,7 +34,7 @@ export default class ProfileScreen extends React.Component {
         await AsyncStorage.clear();
         this.props.navigation.navigate('Auth');
         // change connections
-        firebase.database().ref("users").child(User.phone).update({ connections: "offline" });
+        firebase.database().ref("users").child(User.phone).update({ connections: "offline", lastOnline: firebase.database.ServerValue.TIMESTAMP });
     }
 
     render() {

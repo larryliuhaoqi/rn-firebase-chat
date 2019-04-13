@@ -34,6 +34,8 @@ export default class LoginScreen extends React.Component {
       } else if (User.pass != password) {
         Alert.alert('Error', 'Wrong password');
       } else if (User.pass == password) {
+        // online
+        firebase.database().ref("users").child(User.phone).update({ connections: "online" });
         // to app
         AsSet.setItem('userPhone', User.phone);
         ToApp.navigate('App');

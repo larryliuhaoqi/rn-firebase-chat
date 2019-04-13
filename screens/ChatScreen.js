@@ -105,6 +105,7 @@ export default class ChatScreen extends React.Component {
                     renderItem={this.renderRow}
                     keyExtractor={(item, index) => index.toString()}
                 />
+                {/* input box */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 5 }}>
                     <TextInput
                         style={styles.input}

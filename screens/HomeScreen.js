@@ -19,10 +19,10 @@ export default class HomeScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: (
-                // <TouchableOpacity onPress={this.forceUpdateHandler}>
-                //     <Text>Chats</Text>
-                // </TouchableOpacity>
-                <Button onPress={this.forceUpdateHandler} title="Learn More" ></Button>
+                <TouchableOpacity onPress={this.forceUpdateHandler}>
+                    <Text>Chats</Text>
+                </TouchableOpacity>
+                // <Button onPress={this.forceUpdateHandler} title="Learn More" ></Button>
             ),
             headerRight: (
 
@@ -77,6 +77,7 @@ export default class HomeScreen extends React.Component {
     }
 
 
+    // get data form database
     componentWillMount() {
         let dbRef = firebase.database().ref('users');
         dbRef.on('child_added', (val) => {

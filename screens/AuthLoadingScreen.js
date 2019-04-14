@@ -31,7 +31,6 @@ export default class AuthLoadingScreen extends React.Component {
   _bootstrapAsync = async () => {
     User.phone = await AsyncStorage.getItem('userPhone');
     // online
-    firebase.database().ref("users").child(User.phone).update({ connections: "online" });
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
     this.props.navigation.navigate(User.phone ? 'App' : 'Auth');

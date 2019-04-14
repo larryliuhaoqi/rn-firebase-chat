@@ -1,3 +1,4 @@
+// https://firebase.googleblog.com/2013/06/how-to-build-presence-system.html
 import React from 'react';
 import { SafeAreaView, Image, View, Text, FlatList, TouchableOpacity, Button } from 'react-native';
 import User from '../User';
@@ -22,7 +23,7 @@ export default class HomeScreen extends React.Component {
                 //     <Text>Chats</Text>
                 // </TouchableOpacity>
                 <Button onPress={this.forceUpdateHandler} title="Learn More" ></Button>
-                ),
+            ),
             headerRight: (
 
                 // <Button onPress={this.refreshScreen} title="Refresh Screen" />
@@ -38,9 +39,9 @@ export default class HomeScreen extends React.Component {
 
     }
 
-    state = {
-        users: []
-    }
+    // state = {
+    //     users: []
+    // }
 
     // constructor(props) {
     //     super(props);
@@ -50,14 +51,29 @@ export default class HomeScreen extends React.Component {
     //     this.forceUpdateHandler = this.forceUpdateHandler.bind(this)
     // }
 
-    constructor(){
-        super();
+    constructor(props) {
+        super(props);
+        this.state = {
+            connections: '',
+            users: []
+        };
         this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
-      };
+    }
+
+    // handleChange = key => val => {
+    //     this.setState({ [key]: val })
+    // }
+
+
+    // constructor() {
+    //     super();
+    //     this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+    // };
 
     forceUpdateHandler() {
         // this.setState({ lastRefresh: Date(Date.now()).toString() })
-        this.forceUpdate(callback);
+        // this.forceUpdate(callback);
+        this.forceUpdate();
     }
 
 
@@ -108,7 +124,10 @@ export default class HomeScreen extends React.Component {
             <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Chat', item)}
                 style={{ padding: 10, borderBottomColor: '#ccc', borderBottomWidth: 1 }}>
-                <Text style={{ fontSize: 20 }}>
+                <Text
+                    style={{ fontSize: 20 }}
+                    // onChangeText={this.handleChange('connections')}
+                >
                     {item.name}--{item.connections}--{this.convertTime(item.lastOnline)}
                 </Text>
             </TouchableOpacity>

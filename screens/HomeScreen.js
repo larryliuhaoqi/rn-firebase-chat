@@ -122,6 +122,7 @@ export default class HomeScreen extends React.Component {
 
     renderRow = ({ item }) => {
         return (
+            // display each user
             <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Chat', item)}
                 style={{ padding: 10, borderBottomColor: '#ccc', borderBottomWidth: 1 }}>
@@ -139,6 +140,7 @@ export default class HomeScreen extends React.Component {
         this.presenceSystem.bind(this);
         return (
             <SafeAreaView>
+                {/* make all user to list */}
                 <FlatList
                     data={this.state.users}
                     renderItem={this.renderRow}

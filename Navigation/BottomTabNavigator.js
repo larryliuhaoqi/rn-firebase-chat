@@ -15,6 +15,7 @@ const AppStack = createStackNavigator({
 
 const AuthStack = createStackNavigator({ Login: LoginScreen, Regist: RegistScreen });
 
+// buttom tabs
 const TabNavigator = createBottomTabNavigator({
   Home: HomeScreen,
   Profile: ProfileScreen,

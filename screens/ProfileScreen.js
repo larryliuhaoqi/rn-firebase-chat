@@ -45,6 +45,7 @@ export default class ProfileScreen extends React.Component {
                 </Text>
                 <TextInput
                     style={styles.input}
+                    // display user name
                     value={this.state.name}
                     onChangeText={this.handleChange('name')}
                 />

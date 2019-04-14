@@ -13,6 +13,7 @@ class App extends Component<Props> {
 
   render() {
     return (
+      // jump to appnavigator
           <AppNavigator />
     );
   }

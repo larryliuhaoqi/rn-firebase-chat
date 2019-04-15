@@ -7,6 +7,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import firebase from 'firebase'; // firebase
 import User from '../User';
+import config from '../static/config'
+
 
 export default class AuthLoadingScreen extends React.Component {
   constructor(props) {
@@ -16,14 +18,14 @@ export default class AuthLoadingScreen extends React.Component {
 
   componentWillMount() {
     // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyBLuScbaQQ5is3wReBHKv5OcAOwxjL2kmo",
-      authDomain: "firechat-98cd0.firebaseapp.com",
-      databaseURL: "https://firechat-98cd0.firebaseio.com",
-      projectId: "firechat-98cd0",
-      storageBucket: "firechat-98cd0.appspot.com",
-      messagingSenderId: "838816380435"
-    };
+    // var config = {
+    //   apiKey: "AIzaSyBLuScbaQQ5is3wReBHKv5OcAOwxjL2kmo",
+    //   authDomain: "firechat-98cd0.firebaseapp.com",
+    //   databaseURL: "https://firechat-98cd0.firebaseio.com",
+    //   projectId: "firechat-98cd0",
+    //   storageBucket: "firechat-98cd0.appspot.com",
+    //   messagingSenderId: "838816380435"
+    // };
     firebase.initializeApp(config);
 
     if (User.phone) {

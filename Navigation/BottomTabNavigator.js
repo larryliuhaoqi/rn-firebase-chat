@@ -6,19 +6,24 @@ import LoginScreen from '../screens/LoginScreen';
 import ChatScreen from '../screens/ChatScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import RegistScreen from '../screens/RegistScreen';
+import FriendListScreen from '../screens/FriendListScreen/FriendListScreen'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const AppStack = createStackNavigator({
-  Home: HomeScreen, Chat: ChatScreen, Profile: ProfileScreen, 
+  Home: HomeScreen, 
+  Chat: ChatScreen, 
+  Profile: ProfileScreen, 
+  Friend: FriendListScreen,
 });
 
 const AuthStack = createStackNavigator({ Login: LoginScreen, Regist: RegistScreen });
 
 // buttom tabs
 const TabNavigator = createBottomTabNavigator({
-  Home: HomeScreen,
-  Profile: ProfileScreen,
+  H: HomeScreen,
+  P: ProfileScreen,
+  F: FriendListScreen,
 });
 export default createAppContainer(TabNavigator);
 

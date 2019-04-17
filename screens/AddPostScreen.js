@@ -5,18 +5,20 @@ import styles from '../constants/styles';
 import firebase from 'firebase';
 import ImagePicker from 'react-native-image-picker';
 import config from '../static/config'
+import { View } from 'native-base';
 
 export default class AddPostScreen extends React.Component {
 
     static navigationOptions = {
-        title: 'Edit Post'
+        header: null,
+        // title: 'Edit Post'
     }
 
     state = {
         name: User.name,
         postImg: { uri: '../images/add.png' },
         description: '',
-        img:''
+        img: ''
     }
 
     uploadImg = (res) => {
@@ -27,8 +29,8 @@ export default class AddPostScreen extends React.Component {
             type: 'image/jpeg', // or photo.type
             name: res.fileName
         });
-        this.setState({img: res.fileName})
-        console.log('img: '+this.state.img)
+        this.setState({ img: res.fileName })
+        console.log('img: ' + this.state.img)
         fetch(config.nodeServer + 'imageUpload', {
             method: 'post',
             headers: {
@@ -56,7 +58,7 @@ export default class AddPostScreen extends React.Component {
             phone: User.phone,
             img: this.state.img
         }
-        console.log("img "+ this.state.img)
+        console.log("img " + this.state.img)
         updates['post/' + User.phone + '/' + postId_] = post;
         firebase.database().ref().update(updates);
     }
@@ -66,18 +68,6 @@ export default class AddPostScreen extends React.Component {
     handleChange = key => val => {
         this.setState({ [key]: val })
     }
-
-    // handle showing image after image loaded
-    // _finishLoading = function () {
-    //     console.log("Finished loading");
-    //     this.setState({ loaded: true });
-    // }
-
-
-    // showImage = () => {
-    //     var image = <Image onLoadEnd={this._finishLoading.bind(this)} {...this.props} />;
-    //     return this.state.loaded ? image : <Image {...this.props} source={Loader} />;
-    // }
 
     //edit image
     editImage = () => {
@@ -105,10 +95,6 @@ export default class AddPostScreen extends React.Component {
                 // const source = { uri: response.uri };
                 const source = { uri: 'data:image/jpeg;base64,' + response.data };
                 console.log(source)
-
-                // You can also display the image using data:
-                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
                 this.setState({
                     postImg: source,
                 });
@@ -132,31 +118,38 @@ export default class AddPostScreen extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                {/* <Image source={this.state.avatarSource} style={styles.uploadAvatar} /> */}
                 <Image
-                    style={{ width: 50, height: 50 }}
+                    style={{
+                        width: '100%',
+                        height: 250,
+                        marginBottom: 40,
+                    }}
                     source={this.state.postImg}
                 />
-                <Text style={{ fontSize: 20 }}>
-                    {User.phone}
-                </Text>
+                <View>
                 <TextInput
-                    style={styles.input}
+                    style={{
+                        padding: 10,
+                        borderWidth: 1,
+                        borderColor: '#ccc',
+                        width: '100%',
+                        marginBottom: 10,
+                        borderRadius: 5,
+                        padding: 15,
+                    }}
                     // display user name
                     value={this.state.description}
                     onChangeText={this.handleChange('description')}
                 />
-                <TouchableOpacity onPress={this.changeName}>
-                    <Text style={styles.btnText}>Change name</Text>
-                </TouchableOpacity>
+                </View>
                 <TouchableOpacity onPress={this.editImage}>
-                    <Text style={styles.btnText}>Edit image</Text>
+                    <Text style={styles.btnText}>Select image</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     this.submitPost();
                     this.props.navigation.navigate('Home'); // TODO
                 }}>
-                    <Text style={styles.btnText}>Submit</Text>
+                    <Text style={styles.btnText}>Post now!</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         )

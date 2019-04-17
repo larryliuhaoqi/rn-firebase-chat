@@ -15,8 +15,7 @@ export default class AddPostScreen extends React.Component {
     state = {
         name: User.name,
         postImg: { uri: '../images/add.png' },
-        description: '',
-        postID:''
+        description: ''
     }
 
     uploadImg = (res) => {
@@ -25,7 +24,7 @@ export default class AddPostScreen extends React.Component {
         data.append('imageFile', {
             uri: res.uri,
             type: 'image/jpeg', // or photo.type
-            name: User.phone + 
+            name: User.phone + firebase.database.ServerValue.TIMESTAMP
         });
         fetch(config.nodeServer + 'imageUpload', {
             method: 'post',

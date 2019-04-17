@@ -1,27 +1,12 @@
-// https://firebase.googleblog.com/2013/06/how-to-build-presence-system.html
 import React, { Component } from 'react';
 import { SafeAreaView, Image, View, Text, FlatList, TouchableOpacity, Button, ActivityIndicator } from 'react-native';
 
-// import { YellowBox } from 'react-native';
-// import _ from 'lodash';
 import { List, ListItem, SearchBar } from "react-native-elements";
-// import Ionicons from 'react-native-vector-icons/Ionicons';
-// import VectorIcon from '../Navigation/VectorIcon';
 import styles from '../constants/styles';
 import User from '../User';
 
 import config from '../static/config';
 import firebase from 'firebase';
-
-
-
-// YellowBox.ignoreWarnings(['Setting a timer']);
-// const _console = _.clone(console);
-// console.warn = message => {
-//     if (message.indexOf('Setting a timer') <= -1) {
-//         _console.warn(message);
-//     }
-// };
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -33,7 +18,6 @@ export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            connections: '',
             users: [],
             loading: false,
             data: [],
@@ -122,30 +106,6 @@ export default class HomeScreen extends React.Component {
         return result;
     }
 
-    // precense system
-    presenceSystem() {
-        // online
-        firebase.database().ref("users").child(User.phone).update({ connections: "online" });
-
-        // offline
-        var presenceRef = firebase.database().ref("users").child(User.phone);
-        // Write a string when this client loses connection
-        presenceRef.onDisconnect().update({ connections: "offline", lastOnline: firebase.database.ServerValue.TIMESTAMP });
-    }
-
-    // blue name and 'online' if online
-    handleColor = (conn) => {
-        let ccc = new String(conn);
-        let online = 'online';
-        let online_blue = '#2976c4';
-        let offline_grey = '#ccc';
-        if (ccc == online) {
-            return online_blue;
-        } else {
-            return offline_grey;
-        }
-    }
-
     renderRow = ({ item }) => {
         return (
             // display each user
@@ -180,15 +140,12 @@ export default class HomeScreen extends React.Component {
                     }
                     avatar={
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('Chat', item)}
+                            // onPress={() => this.props.navigation.navigate('Chat', item)}
                             style={{
                                 marginLeft: "1%",
                                 marginTop: 5
                             }}
                         >
-                            {/* <VectorIcon
-                                name='user'
-                            /> */}
                             <Image
                                 // style={styles.userImage}
                                 style={{
@@ -215,7 +172,6 @@ export default class HomeScreen extends React.Component {
                         marginTop: 10,
                     }}>
                     <Image
-                        // style={styles.userImage}
                         style={{ width: '100%', height: 250}}
                         source={{
                             uri: config.nodeServer +
@@ -274,7 +230,6 @@ export default class HomeScreen extends React.Component {
 
 
     render() {
-        this.presenceSystem.bind(this);
         return (
             <SafeAreaView>
                 {/* make all user to list */}

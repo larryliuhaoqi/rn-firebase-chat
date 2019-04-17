@@ -22,8 +22,9 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   btnText: {
-    color: 'blue',
-    fontSize: 20
+    color: '#424242',
+    fontSize: 18,
+    fontWeight: '500'
   },
   subtitleView: {
     paddingLeft: 10,
@@ -36,16 +37,16 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    paddingVertical: 16,
-    flexDirection: 'row'
+    paddingVertical: 18,
+    flexDirection: 'column'
   },
   signupText: {
-    color: 'rgba(255,255,255,0.6)',
-    fontSize: 16
+    color: '#444444',
+    fontSize: 18
   },
   signupButton: {
-    color: '#ffffff',
-    fontSize: 16,
+    color: '#424242',
+    fontSize: 18,
     fontWeight: '500'
   }
 

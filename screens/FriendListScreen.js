@@ -1,4 +1,3 @@
-// https://firebase.googleblog.com/2013/06/how-to-build-presence-system.html
 import React, { Component } from 'react';
 import { SafeAreaView, Image, View, Text, FlatList, TouchableOpacity, Button, ActivityIndicator } from 'react-native';
 import User from '../User';
@@ -10,37 +9,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import VectorIcon from '../Navigation/VectorIcon';
 import styles from '../constants/styles'
 
-
-// YellowBox.ignoreWarnings(['Setting a timer']);
-// const _console = _.clone(console);
-// console.warn = message => {
-//     if (message.indexOf('Setting a timer') <= -1) {
-//         _console.warn(message);
-//     }
-// };
-
 export default class FriendListScreen extends React.Component {
     static navigationOptions = {
         header: null,
-        // title: 'Home',
     };
-    // header
-    // static navigationOptions = ({ navigation }) => {
-    //     return {
-    //         header: null,
-    //         headerTitle: (
-    //                 <Text>Chats</Text>
-    //         ),
-    //         headerRight: (
-    //             <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
-    //                 <Image source={require('../images/user.png')}
-    //                     style={{ width: 32, height: 32, marginRight: 7 }}
-    //                 />
-    //             </TouchableOpacity>
-    //         ),
-    //     }
-    // }
-
 
     constructor(props) {
         super(props);
@@ -101,7 +73,6 @@ export default class FriendListScreen extends React.Component {
             }
         );
     };
-
 
     // convert time
     convertTime = (conn,time) => {

@@ -15,7 +15,8 @@ export default class AddPostScreen extends React.Component {
     state = {
         name: User.name,
         postImg: { uri: '../images/add.png' },
-        description: ''
+        description: '',
+        img:''
     }
 
     uploadImg = (res) => {
@@ -24,8 +25,10 @@ export default class AddPostScreen extends React.Component {
         data.append('imageFile', {
             uri: res.uri,
             type: 'image/jpeg', // or photo.type
-            name: User.phone + firebase.database.ServerValue.TIMESTAMP
+            name: res.fileName
         });
+        this.setState({img: res.fileName})
+        console.log('img: '+this.state.img)
         fetch(config.nodeServer + 'imageUpload', {
             method: 'post',
             headers: {
@@ -44,15 +47,17 @@ export default class AddPostScreen extends React.Component {
     }
 
     submitPost = async () => {
-        let postId = firebase.database().ref('post').child(User.phone).push().key;
+        let postId_ = firebase.database().ref('post').child(User.phone).push().key;
         let updates = {};
         let post = {
             description: this.state.description,
             time: firebase.database.ServerValue.TIMESTAMP,
             name: User.name,
-            phone: User.phone
+            phone: User.phone,
+            img: this.state.img
         }
-        updates['post/' + User.phone + '/' + postId] = post;
+        console.log("img "+ this.state.img)
+        updates['post/' + User.phone + '/' + postId_] = post;
         firebase.database().ref().update(updates);
     }
 

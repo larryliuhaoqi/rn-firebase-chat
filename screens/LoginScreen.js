@@ -4,8 +4,8 @@ import { Platform, TouchableOpacity, Text, Alert, TextInput, View, AsyncStorage 
 import firebase from 'firebase';
 import User from '../User';
 import styles from '../constants/styles';
-import VectorIcon from '../Navigation/VectorIcon';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 
 export default class LoginScreen extends React.Component {
@@ -54,27 +54,45 @@ export default class LoginScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput
-          placeholder="Username"
-          style={styles.input}
-          value={this.state.phone}
-          onChangeText={this.handleChange('phone')}
-        />
-        <TextInput
-          placeholder="Password"
-          secureTextEntry
-          style={styles.input}
-          value={this.state.pass}
-          onChangeText={this.handleChange('pass')}
-        />
-        {/* login */}
-        <TouchableOpacity onPress={this.submitForm}>
-          <Text style={styles.btnText}>Enter</Text>
-        </TouchableOpacity>
-        {/* Regist */}
-        <TouchableOpacity onPress={this.toRegistScreen.bind(this)}>
-          <Text style={styles.btnText}>Sign Up</Text>
-        </TouchableOpacity>
+        <View style={styles.signupTextCont}>
+          <Icon
+            name={'instagram'}
+            size={120}
+            marginBottom={40}
+            color={'#444444'}
+          />
+          <TextInput
+            placeholder="Phone"
+            style={styles.signupText}
+            value={this.state.phone}
+            onChangeText={this.handleChange('phone')}
+          />
+          <TextInput
+            placeholder="Password"
+            secureTextEntry
+            style={styles.signupText}
+            value={this.state.pass}
+            onChangeText={this.handleChange('pass')}
+          />
+          {/* login */}
+          <TouchableOpacity
+            onPress={this.submitForm}
+            style={{
+              marginTop: 80
+            }}
+          >
+            <Text style={styles.btnText}>Enter</Text>
+          </TouchableOpacity>
+          {/* Regist */}
+          <TouchableOpacity
+            onPress={this.toRegistScreen.bind(this)}
+            style={{
+              marginTop: 10
+            }}
+          >
+            <Text style={styles.btnText}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

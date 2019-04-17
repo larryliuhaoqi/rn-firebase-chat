@@ -7,7 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ChatScreen from '../screens/ChatScreen';
-import EditScreen from '../screens/EditScreen';
+import EditInfo from '../screens/EditInfoScreen/index';
 import RegistScreen from '../screens/RegistScreen';
 import FriendListScreen from '../screens/FriendListScreen'
 import ProfileScreen from '../screens/ProfileScreen'
@@ -22,7 +22,7 @@ const AppStack = createStackNavigator({
   Chat: ChatScreen, 
   Profile: ProfileScreen, 
   Friend: FriendListScreen,
-  Edit: EditScreen,
+  Edit: EditInfo,
 });
 
 const AuthStack = createStackNavigator({ 

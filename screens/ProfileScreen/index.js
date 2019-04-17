@@ -22,20 +22,9 @@ class ProfileScreen extends React.Component {
       console.log(props);
   }
 
-  // static navigationOptions =  ({ navigation }) => ({
-  //   header: (
-  //     <InfoNav
-  //       title= "ChatChat"
-  //       navigation={navigation}
-  //       leftIcon={{
-  //         type: 'ionicon',
-  //         name: 'md-list',
-  //         size: 26,
-  //       }}
-  //     />
-  //   ),
-  //   // title: 'Foodie Pick',
-  // });
+  static navigationOptions =  ({ navigation }) => ({
+    header: null
+  });
 
  
 

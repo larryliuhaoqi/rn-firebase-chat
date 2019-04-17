@@ -28,4 +28,4 @@ const mansonry = (items, propName) => {
   )
 }
 
-export { mansonry }
+export default mansonry;

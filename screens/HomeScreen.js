@@ -1,14 +1,18 @@
 // https://firebase.googleblog.com/2013/06/how-to-build-presence-system.html
 import React, { Component } from 'react';
 import { SafeAreaView, Image, View, Text, FlatList, TouchableOpacity, Button, ActivityIndicator } from 'react-native';
-import User from '../User';
-import firebase from 'firebase';
+
 // import { YellowBox } from 'react-native';
-import _ from 'lodash';
+// import _ from 'lodash';
 import { List, ListItem, SearchBar } from "react-native-elements";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import VectorIcon from '../Navigation/VectorIcon';
-import styles from '../constants/styles'
+// import Ionicons from 'react-native-vector-icons/Ionicons';
+// import VectorIcon from '../Navigation/VectorIcon';
+import styles from '../constants/styles';
+import User from '../User';
+
+import config from '../static/config';
+import firebase from 'firebase';
+
 
 
 // YellowBox.ignoreWarnings(['Setting a timer']);
@@ -24,22 +28,6 @@ export default class HomeScreen extends React.Component {
         header: null,
         // title: 'Home',
     };
-    // header
-    // static navigationOptions = ({ navigation }) => {
-    //     return {
-    //         header: null,
-    //         headerTitle: (
-    //                 <Text>Chats</Text>
-    //         ),
-    //         headerRight: (
-    //             <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
-    //                 <Image source={require('../images/user.png')}
-    //                     style={{ width: 32, height: 32, marginRight: 7 }}
-    //                 />
-    //             </TouchableOpacity>
-    //         ),
-    //     }
-    // }
 
 
     constructor(props) {
@@ -104,31 +92,31 @@ export default class HomeScreen extends React.Component {
 
 
     // convert time
-    convertTime = (conn,time) => {
+    convertTime = (conn, time) => {
         // console.log(time);
-        
+
         let d = new Date(time);
         let c = new Date();
         let result = (d.getHours() < 10 ? '0' : '') + d.getHours() + ':';
         result += (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
         // result = d.getDay() + ' day ' + d.getMonth() + ' month before at' + result;
         var c_year = c.getFullYear();
-        var c_month = c.getMonth() +1;
+        var c_month = c.getMonth() + 1;
         var c_date = c.getDate();
-        var c_ymd = c_year*10000+c_month*100+c_date;
+        var c_ymd = c_year * 10000 + c_month * 100 + c_date;
         // console.log(c_ymd);
 
         var d_year = d.getFullYear();
-        var d_month = d.getMonth() +1;
+        var d_month = d.getMonth() + 1;
         var d_date = d.getDate();
-        var d_ymd = d_year*10000+d_month*100+d_date;
+        var d_ymd = d_year * 10000 + d_month * 100 + d_date;
 
-        if (conn == 'online'){
+        if (conn == 'online') {
             result = ' ';
-        }else if (c_ymd-d_ymd >= 10000) {
-            result = '  -  Last online ' + d_year + '/' + d_month + '/'+d_date+' ' + result;
-        }else if(c_ymd-d_ymd < 10000 && c_ymd-d_ymd >= 1 ) {
-            result = '  -  Last online ' + d_month + '/'+d_date+' ' + result;
+        } else if (c_ymd - d_ymd >= 10000) {
+            result = '  -  Last online ' + d_year + '/' + d_month + '/' + d_date + ' ' + result;
+        } else if (c_ymd - d_ymd < 10000 && c_ymd - d_ymd >= 1) {
+            result = '  -  Last online ' + d_month + '/' + d_date + ' ' + result;
         }
 
         return result;
@@ -153,7 +141,7 @@ export default class HomeScreen extends React.Component {
         let offline_grey = '#ccc';
         if (ccc == online) {
             return online_blue;
-        }else{
+        } else {
             return offline_grey;
         }
     }
@@ -161,48 +149,95 @@ export default class HomeScreen extends React.Component {
     renderRow = ({ item }) => {
         return (
             // display each user
-            <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Chat', item)}
+            <View
                 style={{
-                    marginLeft: "1%"
-                }}
-            >
+                    marginBottom: 15
+                }}>
                 <ListItem
-                    roundAvatar
                     title={
                         <Text
-                        style={{ 
-                            paddingLeft: 25,
-                            fontWeight:'bold',
-                            fontSize:18,
-                            color: this.handleColor(item.connections),
-                        }}
-                    >
-                    {item.name}
-                    </Text>
+                            style={{
+                                paddingLeft: 25,
+                                marginBottom: 3,
+                                fontWeight: 'bold',
+                                fontSize: 20,
+                                color: '#444444',
+                            }}
+                        >
+                            {item.name}
+                        </Text>
 
                     }
                     subtitle={
                         <Text
-                            style={{ 
+                            style={{
                                 paddingLeft: 25,
-                                color: this.handleColor(item.connections),
+                                color: 'grey',
                             }}
                         >
-                        {item.connections}{this.convertTime(item.connections,item.lastOnline)}
+                            Location
                         </Text>
                     }
                     avatar={
-                        // uri: item.picture.thumbnail
-                        // { uri: this.state.data.picture.thumbnail }
-                        // require('../images/user.png')
-                        <VectorIcon
-                            name='user'
-                        />
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('Chat', item)}
+                            style={{
+                                marginLeft: "1%",
+                                marginTop: 5
+                            }}
+                        >
+                            {/* <VectorIcon
+                                name='user'
+                            /> */}
+                            <Image
+                                // style={styles.userImage}
+                                style={{
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: 30
+                                }}
+                                source={{
+                                    uri: config.nodeServer +
+                                        'imageDownload?img=' +
+                                        // User.phone + 
+                                        '1111111111_icon.jpg'
+                                }}
+                            />
+
+                        </TouchableOpacity>
+
                     }
                     containerStyle={{ borderBottomWidth: 0 }}
                 />
-            </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={{
+                        marginTop: 10,
+                    }}>
+                    <Image
+                        // style={styles.userImage}
+                        style={{ width: '100%', height: 250}}
+                        source={{
+                            uri: config.nodeServer +
+                                'imageDownload?img=' +
+                                // User.phone + 
+                                '1111111111_icon.jpg'
+                        }}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={{
+                        marginTop: 15,
+                        marginBottom: 25,
+                        marginLeft: 10,
+                        marginRight: 10,
+                    }}>
+                    <Text
+                        style={{
+                            fontSize: 16,
+                        }}>Description of this post</Text>
+                </TouchableOpacity>
+            </View>
         )
     }
 
@@ -211,17 +246,15 @@ export default class HomeScreen extends React.Component {
             <View
                 style={{
                     height: 1,
-                    width: "86%",
                     backgroundColor: "#CED0CE",
-                    marginLeft: "12%"
                 }}
             />
         );
     };
 
-    renderHeader = () => {
-        return <SearchBar placeholder="Type Here..." lightTheme round />;
-    };
+    // renderHeader = () => {
+    //     return <SearchBar placeholder="Type Here..." lightTheme round />;
+    // };
 
     renderFooter = () => {
         if (!this.state.loading) return null;
@@ -251,7 +284,7 @@ export default class HomeScreen extends React.Component {
                     keyExtractor={(item) => item.phone}
 
                     ItemSeparatorComponent={this.renderSeparator}
-                    ListHeaderComponent={this.renderHeader}
+                    // ListHeaderComponent={this.renderHeader}
                     ListFooterComponent={this.renderFooter}
 
                     onRefresh={this.handleRefresh}

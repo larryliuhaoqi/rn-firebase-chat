@@ -11,6 +11,8 @@ import {
 import firebase from 'firebase';
 import User from '../User';
 import styles from '../constants/styles';
+import VectorIcon from '../Navigation/VectorIcon';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class RegistScreen extends React.Component {
 
@@ -59,6 +61,9 @@ export default class RegistScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+          <VectorIcon
+            name={'instagram'}
+      />
         <TextInput
           placeholder="Phone"
           style={styles.input}

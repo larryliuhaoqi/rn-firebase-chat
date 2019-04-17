@@ -3,6 +3,7 @@ import { Text, View, createSwitchNavigator, createStackNavigator, createBottomTa
 
 import BottomTab from './BottomTabNavigator';
 
+import HomeScreen from '../screens/HomeScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ChatScreen from '../screens/ChatScreen';
@@ -17,7 +18,7 @@ const AppStack = createStackNavigator({
   // go to ./BottomTabNavigator and pass data to the following pages
   Bottom:BottomTab, 
   
-  Home: FriendListScreen, 
+  Home: HomeScreen, 
   Chat: ChatScreen, 
   Profile: ProfileScreen, 
   Friend: FriendListScreen,

@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingBottom: 8,
     textAlign: 'center',
+    flexDirection: 'row',
   },
 })
 
@@ -147,9 +148,9 @@ class Contact extends Component {
     data.append('imageFile', {
       uri: res.uri,
       type: 'image/jpeg', // or photo.type
-      name: User.phone+'_icon.jpg'
+      name: User.phone + '_icon.jpg'
     });
-    fetch(config.nodeServer+'imageUpload', {
+    fetch(config.nodeServer + 'imageUpload', {
       method: 'post',
       headers: {
         "Accept": 'multipart/form-data',
@@ -253,21 +254,35 @@ class Contact extends Component {
                 // source={{
                 //   uri: avatar,
                 // }}
-                source={{ uri: config.nodeServer + 'imageDownload?img=' + User.phone+'_icon.jpg' }}
+                source={{ uri: config.nodeServer + 'imageDownload?img=' + User.phone + '_icon.jpg' }}
               />
             </TouchableOpacity>
-            {/* <View style={{ flexDirection: 'row', flex: 1 }}> */}
-            <TextInput
-              style={styles.userNameText}
-              value={this.state.name}
-              onChangeText={this.handleChange('name')}
-            />
-            <TouchableOpacity onPress={this.changeName}>
-              <VectorIcon
-                name='check'
+
+            <View style={{
+              flexDirection: 'row',
+              flex: 1
+            }}>
+              <TextInput
+                style={styles.userNameText}
+                value={this.state.name}
+                onChangeText={this.handleChange('name')}
               />
-            </TouchableOpacity>
-            {/* </View> */}
+              <TouchableOpacity
+                onPress={this.changeName}
+                style={{
+                  flexDirection: "row",
+                  marginLeft: 5,
+                  marginTop: 11,
+                }}
+              >
+                <VectorIcon
+                  name='check'
+                  style={{
+                    flexDirection: "row",
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </ImageBackground>
       </View >

@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,SafeAreaView,
+  TouchableOpacity, SafeAreaView,
 } from 'react-native'
 import { Button } from 'react-native-elements'
 import {
@@ -18,16 +18,59 @@ import {
   PagerScroll,
 } from 'react-native-tab-view'
 import PropTypes from 'prop-types'
-import { image } from '../../images/image'
+import image from '../../images/image'
+import User from '../../User'
 import profileStyles from './ProfileStyle'
 import Posts from './Posts'
+import config from '../../static/config';
+import firebase from 'firebase';
+
 
 
 const styles = StyleSheet.create({ ...profileStyles });
 
+const mansonry = (items, propName) => {
+  return items.reduce(
+    (p, c, k) => {
+      if (k > 1) {
+        if (p.leftHeight <= p.rightHeight) {
+          return {
+            ...p,
+            leftCol: [...p.leftCol, c],
+            leftHeight: p.leftHeight + c[propName],
+          }
+        } else {
+          return {
+            ...p,
+            rightCol: [...p.rightCol, c],
+            rightHeight: p.rightHeight + c[propName],
+          }
+        }
+      } else {
+        return p
+      }
+    },
+    {
+      leftCol: [items[0]],
+      rightCol: [items[1]],
+      leftHeight: items[0].imageHeight,
+      rightHeight: items[1].imageHeight,
+    }
+  )
+}
+
+
 class Profile extends React.Component {
+
+  // static navigationOptions = ({navigation}) =>{
+  //   return {
+  //     header: null
+  //   }
+  // }
+
+
   static propTypes = {
-    navigation:PropTypes.object,
+    navigation: PropTypes.object,
     avatar: PropTypes.string.isRequired,
     avatarBackground: PropTypes.string.isRequired,
     bio: PropTypes.string.isRequired,
@@ -59,7 +102,7 @@ class Profile extends React.Component {
     tabs_1: {
       index: 0,
       routes: [
-        { key: '1', title: 'POSTS'},
+        { key: '1', title: 'POSTS' },
         { key: '2', title: 'DESCR' },
         { key: '3', title: 'LOCAT' },
       ],
@@ -67,30 +110,30 @@ class Profile extends React.Component {
     postsMasonry: {},
   }
 
-  onButtonPress(){
+  onButtonPress() {
     // console.log( "111111111" )
     this.props.navigation.navigate('Settings');
     console.log(this.props);
   }
 
-  onButtonPress_1(){
+  onButtonPress_1() {
     this.props.navigation.navigate('UserInfoStack');
     console.log(this.props);
   }
 
-  onButtonPress_2(){
+  onButtonPress_2() {
     this.props.navigation.navigate('Follower');
     console.log(this.props);
   }
 
-  onButtonPress_3(){
+  onButtonPress_3() {
     this.props.navigation.navigate('Following');
     console.log(this.props);
   }
 
   componentWillMount() {
     this.setState({
-      postsMasonry: image.mansonry(this.props.posts, 'imageHeight'),
+      postsMasonry: mansonry(this.props.posts, 'imageHeight'),
     })
   }
 
@@ -154,16 +197,16 @@ class Profile extends React.Component {
     return Platform.OS === 'ios' ? (
       <PagerScroll {...props} />
     ) : (
-      <PagerPan {...props} />
-    )
+        <PagerPan {...props} />
+      )
   }
 
   renderContactHeader = () => {
     const { avatar, avatarBackground, name, bio, pos, fle, fli } = this.props
     return (
-      <View 
-       style={styles.headerContainer}
-       >
+      <View
+        style={styles.headerContainer}
+      >
         <View style={styles.coverContainer}>
           <TouchableOpacity onPress={this.onButtonPress.bind(this)}>
             <ImageBackground
@@ -176,7 +219,7 @@ class Profile extends React.Component {
                 <Text style={styles.coverTitle} />
               </View>
               <View style={styles.coverMetaContainer}>
-                <Text style={styles.coverName}>{name}</Text>
+                <Text style={styles.coverName}>{User.name}</Text>
                 <Text style={styles.coverBio}>{bio}</Text>
               </View>
             </ImageBackground>
@@ -186,31 +229,36 @@ class Profile extends React.Component {
 
 
 
-      <View style={styles.infoBar}>
-        <View style={styles.mansonryContainer}>
-        <TouchableOpacity onPress={this.onButtonPress_1.bind(this)}>
-            <Text style={styles.tabLabelNumber_2}>{pos}</Text>
-            <Text style={styles.tabLabelText_2}>POSTS</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.onButtonPress_2.bind(this)}>
-            <Text style={styles.tabLabelNumber_2}>{fle}</Text>
-            <Text style={styles.tabLabelText_2}>FOLLOWERS</Text>
-          </TouchableOpacity> 
-          <TouchableOpacity onPress={this.onButtonPress_3.bind(this)}>
-            <Text style={styles.tabLabelNumber_2}>{fli}</Text>
-            <Text style={styles.tabLabelText_2}>FOLLOWING</Text>
-          </TouchableOpacity>
+        <View style={styles.infoBar}>
+          <View style={styles.mansonryContainer}>
+            <TouchableOpacity onPress={this.onButtonPress_1.bind(this)}>
+              <Text style={styles.tabLabelNumber_2}>{pos}</Text>
+              <Text style={styles.tabLabelText_2}>POSTS</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.onButtonPress_2.bind(this)}>
+              <Text style={styles.tabLabelNumber_2}>{fle}</Text>
+              <Text style={styles.tabLabelText_2}>FOLLOWERS</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.onButtonPress_3.bind(this)}>
+              <Text style={styles.tabLabelNumber_2}>{fli}</Text>
+              <Text style={styles.tabLabelText_2}>FOLLOWING</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
 
         <View style={styles.profileImageContainer}>
           <TouchableOpacity onPress={this.onButtonPress.bind(this)}>
-            <Image
+            {/* <Image
               source={{
                 uri: avatar,
               }}
               style={styles.profileImage}
+            /> */}
+            <Image
+              style={styles.profileImage}
+              source={{ uri: config.nodeServer + 'imageDownload?img=' +User.phone+ '_icon.jpg' }}
             />
+
           </TouchableOpacity>
         </View>
 
@@ -241,7 +289,7 @@ class Profile extends React.Component {
   renderMansonry2Col_2 = () => {
     return (
       <View style={styles.mansonryContainer}>
-          <Text>2</Text>
+        <Text>2</Text>
       </View>
     )
   }
@@ -249,27 +297,29 @@ class Profile extends React.Component {
   renderMansonry2Col_3 = () => {
     return (
       <View style={styles.mansonryContainer}>
-          <Text>3</Text>
+        <Text>3</Text>
       </View>
     )
   }
-  
+
 
 
   render() {
     return (
-      <ScrollView style={styles.scroll }>
+      <ScrollView style={styles.scroll}>
 
-      { console.log( this.props.navigation)}
+        {console.log(this.props.navigation)}
         <View style={[styles.container, this.props.containerStyle]}>
           <View style={styles.cardContainer}>
             {this.renderContactHeader()}
 
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-around', 
-            borderTopWidth: 1, borderTopColor: '#eae5e5' }}></View>
-            
-            
+            <View style={{
+              flexDirection: 'row', justifyContent: 'space-around',
+              borderTopWidth: 1, borderTopColor: '#eae5e5'
+            }}></View>
+
+
             <TabView
               navigationState={this.state.tabs_1}
               onIndexChange={this._handleIndexChange_1}
@@ -280,8 +330,8 @@ class Profile extends React.Component {
               style={[styles.tabContainer, this.props.tabContainerStyle]}
             />
           </View>
-        
-        </View> 
+
+        </View>
       </ScrollView>
     )
   }

@@ -5,10 +5,10 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#FFFFFF',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   messageinput: {
     flex: 1,
@@ -32,6 +32,23 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: 'blue',
   },
+  signupTextCont: {
+    flexGrow: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingVertical: 16,
+    flexDirection: 'row'
+  },
+  signupText: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 16
+  },
+  signupButton: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: '500'
+  }
+
 });
 
 export default styles;

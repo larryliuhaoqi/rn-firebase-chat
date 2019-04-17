@@ -1,8 +1,7 @@
 import React from 'react';
 import { Text, View, createSwitchNavigator, createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
 
-import VectorIcon from '../Navigation/VectorIcon';
-
+import HomeScreen from '../screens/HomeScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ChatScreen from '../screens/ChatScreen';
@@ -11,23 +10,26 @@ import RegistScreen from '../screens/RegistScreen';
 import FriendListScreen from '../screens/FriendListScreen'
 import ProfileScreen from '../screens/ProfileScreen/index';
 import FlatListDemo from '../screens/ProfileScreen/FollowerScreen/FlatListDemo'
-import EditInfo from '../screens/EditInfoScreen/index'
+import EditInfo from '../screens/EditInfoScreen/index';
+import AddPostScreen from '../screens/AddPostScreen';
 
+import VectorIcon from '../Navigation/VectorIcon';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // https://oblador.github.io/react-native-vector-icons/
 
 const AppStack = createStackNavigator({
-  Home: FriendListScreen,
+  Home: HomeScreen,
   Chat: ChatScreen,
   Profile: ProfileScreen,
   Friend: FriendListScreen,
   EditProfile: EditScreen,
+  AddPost: AddPostScreen,
 });
 
 // Home Screen
 const HomeStack = createStackNavigator(
   {
-    Home: FriendListScreen
+  Home: HomeScreen,
   },
 );
 
@@ -54,7 +56,7 @@ const UserInfoStack = createStackNavigator({
 });
 
 UserInfoStack.navigationOptions = {
-  tabBarLabel: 'UserInfo',
+  tabBarLabel: 'User',
   tabBarIcon: ({ focused }) => (
     <VectorIcon
       focused={focused}
@@ -81,19 +83,36 @@ FriendStack.navigationOptions = {
 };
 
 // Edit User Info Screen
-const EditStack = createStackNavigator({
-  EditInfo: EditScreen,
+const PostStack = createStackNavigator({
+  Profile: ProfileScreen,
 });
 
-EditStack.navigationOptions = {
-  tabBarLabel: 'Edit',
+PostStack.navigationOptions = {
+  tabBarLabel: 'Posts',
   tabBarIcon: ({ focused }) => (
     <VectorIcon
       focused={focused}
       //name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
-      name={'bars'}
+      name={'photo'}
     />
   ),
+};
+
+// add new post
+const AddPostStack = createStackNavigator({
+  AddPost: AddPostScreen,
+});
+
+AddPostStack.navigationOptions = {
+  tabBarLabel: 'New',
+  tabBarIcon: ({ focused }) => (
+    <VectorIcon
+      focused={focused}
+      //name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={'instagram'}
+    />
+  ),
+
 };
 
 
@@ -101,9 +120,10 @@ EditStack.navigationOptions = {
 export default createAppContainer(createBottomTabNavigator(
   {
     HomeStack,
-    UserInfoStack,
     FriendStack,
-    EditStack,
+    AddPostStack,
+    PostStack,
+    UserInfoStack,
   }
-));
+  ));
 

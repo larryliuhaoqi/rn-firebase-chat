@@ -8,7 +8,7 @@ import config from '../static/config'
 
 export default class EditScreen extends React.Component {
 
-    static navigationOptions = {
+    static navigationOptions ={
         title: 'Profile'
     }
 

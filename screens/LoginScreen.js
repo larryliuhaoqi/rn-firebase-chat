@@ -4,6 +4,9 @@ import { Platform, TouchableOpacity, Text, Alert, TextInput, View, AsyncStorage 
 import firebase from 'firebase';
 import User from '../User';
 import styles from '../constants/styles';
+import VectorIcon from '../Navigation/VectorIcon';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 export default class LoginScreen extends React.Component {
 

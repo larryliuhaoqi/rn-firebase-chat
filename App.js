@@ -16,6 +16,7 @@ class App extends Component<Props> {
 
   render() {
     return (
+      console.disableYellowBox = true,
       // jump to appnavigator
       // <Provider store = {store}>
 

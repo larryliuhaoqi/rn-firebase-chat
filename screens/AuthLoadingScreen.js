@@ -17,16 +17,7 @@ export default class AuthLoadingScreen extends React.Component {
   }
 
   componentWillMount() {
-    // Initialize Firebase
-    // var config = {
-    //   apiKey: "AIzaSyBLuScbaQQ5is3wReBHKv5OcAOwxjL2kmo",
-    //   authDomain: "firechat-98cd0.firebaseapp.com",
-    //   databaseURL: "https://firechat-98cd0.firebaseio.com",
-    //   projectId: "firechat-98cd0",
-    //   storageBucket: "firechat-98cd0.appspot.com",
-    //   messagingSenderId: "838816380435"
-    // };
-    firebase.initializeApp(config);
+    firebase.initializeApp(config.firebase);
 
     if (User.phone) {
       var presenceRef = firebase.database().ref("users").child(User.phone).child('connections')

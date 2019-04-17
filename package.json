@@ -9,13 +9,21 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.2.4",
     "firebase": "^5.9.3",
+    "native-base": "^2.12.1",
     "react": "16.8.3",
     "react-native": "0.59.3",
+    "react-native-desktop": "^0.6.5",
     "react-native-elements": "^0.19.1",
     "react-native-gesture-handler": "^1.1.0",
+    "react-native-image-picker": "^0.28.1",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.6.1",
-    "redux": "^4.0.1"
+    "react-redux": "^7.0.2",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.10.0",
+    "redux-saga": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
